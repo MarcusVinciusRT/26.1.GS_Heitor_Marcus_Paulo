@@ -62,9 +62,26 @@ for valor in intensidades:
     if valor > media_intensidade:
         eventos_acima_media += 1
 
-# Identificação do Evento Mais Crítico (Maior Intensidade)
-# Nota: Em caso de empate na intensidade, a lógica abaixo pega o primeiro encontrado
-indice_critico = intensidades.index(max(intensidades))
+# Identificação do Evento Mais Crítico
+# Critérios:
+# 1º Maior intensidade
+# 2º Maior área afetada (em caso de empate)
+# 3º Primeiro evento registrado (se continuar empatado)
+
+indice_critico = 0
+
+for i in range(1, total_eventos):
+
+    # Verifica maior intensidade
+    if intensidades[i] > intensidades[indice_critico]:
+        indice_critico = i
+
+    # Em caso de empate na intensidade
+    elif intensidades[i] == intensidades[indice_critico]:
+
+        # Verifica maior área afetada
+        if areas_afetadas[i] > areas_afetadas[indice_critico]:
+            indice_critico = i
 
 # 4. Relatório de Resultados (Formatação f-string conforme Aula 03) [4-6]
 print("\n" + "=" * 40)
